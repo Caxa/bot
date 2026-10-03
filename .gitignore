@@ -1,0 +1,10 @@
+.env
+.DS_Store
+data/
+reports/
+*.log
+/transferbot
+/tradebot
+/gateconvert
+/bitgetconvert
+/tlog

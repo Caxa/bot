@@ -1,0 +1,37 @@
+# Конфиг для живого теста cmd/tradebot на $100.
+#
+# notional_usd = 100: Net% считается ЧЕСТНО относительно реального размера
+# сделки (а не завышается расчётом на $1000 с последующим урезанием ордера).
+# Это значит, что кандидатов будет мало или вообще не будет — комиссия
+# вывода фиксирована в долларах и на $100 съедает большую часть спреда.
+# Это ожидаемо и правильно: лучше не найти сделку, чем найти убыточную.
+
+notional_usd: 100
+
+persist_polls: 3
+max_instant_candidates: 500
+
+sources:
+  - gate
+  - bitget
+
+sinks:
+  - gate
+  - bitget
+
+taker_fee_pct:
+  gate: 0.20
+  bitget: 0.10
+
+# Риск-менеджмент (см. cmd/tradebot):
+max_notional_per_trade_usd: 100
+max_concurrent_trades: 1
+cooldown_minutes: 30
+slippage_buffer_pct: 0.15
+require_fee_known: true
+
+snapshots_file: data/transfer_snapshots_gate_bitget.jsonl
+csv_file: data/transfer_quotes_gate_bitget.csv
+report_file: reports/tradebot_scan.md
+poll_report_file: reports/tradebot_scan_poll.md
+anomalies_file: data/transfer_anomalies_gate_bitget.csv

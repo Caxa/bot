@@ -1,0 +1,42 @@
+# Конвейерный арбитраж: купил дешевле → перевёл → продал дороже.
+# Бумага по умолчанию: ордеров и выводов нет.
+
+notional_usd: 100
+
+# Сколько раз подряд плюс должен жить, чтобы считаться устойчивым.
+# При --once истории нет — такие строки помечаются instant_unproven.
+persist_polls: 2
+
+sources:
+  - binance
+  - okx
+  - bybit
+  - bitget
+  - gate
+
+sinks:
+  - upbit
+  - btcturk
+  - bitso
+  - indodax
+  - binance
+  - okx
+  - bybit
+  - bitget
+  - gate
+
+taker_fee_pct:
+  binance: 0.10
+  okx: 0.10
+  bybit: 0.10
+  bitget: 0.10
+  gate: 0.20
+  upbit: 0.05
+  btcturk: 0.10
+  bitso: 0.10
+  indodax: 0.30
+
+snapshots_file: data/transfer_snapshots.jsonl
+csv_file: data/transfer_quotes.csv
+report_file: reports/transfer_scan_latest.md
+anomalies_file: data/transfer_anomalies.csv

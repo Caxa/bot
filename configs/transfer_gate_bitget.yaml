@@ -1,0 +1,32 @@
+# Сфокусированный скан только gate <-> bitget (обе стороны).
+# Причина отдельного конфига: в общем скане (9 бирж) сравнение с net% по
+# другим парам может выталкивать gate/bitget маршруты из топ-40 инстант-
+# кандидатов, ломая учёт "держался ли плюс" — здесь бирж всего две, поэтому
+# лимит можно снять почти полностью.
+#
+# notional_usd поднят со $100 до $1000: у мелких альткоинов комиссия вывода
+# фиксирована в долларах (не в процентах), на $100 она съедает весь
+# наблюдаемый спред (0.1-0.9%). На $1000 то же самое видно честно, в процентах.
+
+notional_usd: 1000
+
+persist_polls: 2
+max_instant_candidates: 500
+
+sources:
+  - gate
+  - bitget
+
+sinks:
+  - gate
+  - bitget
+
+taker_fee_pct:
+  gate: 0.20
+  bitget: 0.10
+
+snapshots_file: data/transfer_snapshots_gate_bitget.jsonl
+csv_file: data/transfer_quotes_gate_bitget.csv
+report_file: reports/transfer_scan_gate_bitget.md
+poll_report_file: reports/transfer_scan_gate_bitget_poll.md
+anomalies_file: data/transfer_anomalies_gate_bitget.csv
